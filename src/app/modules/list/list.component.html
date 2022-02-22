@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <li *ngFor="let d of finalList" class="list-group-item">
+    <span class="ml5">Arrondissement:</span> <span [ngStyle]="{'font-weight':'bold'}"> {{d.name}}</span>
+    <span class="ml5">Amount:</span> <span [ngStyle]="{'font-weight':'bold'}"> {{d.count}}</span>
+  </li>
+</ul>
+
+
