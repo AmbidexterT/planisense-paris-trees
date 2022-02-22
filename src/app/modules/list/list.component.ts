@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   API_URL
 } from "../../../../src/config";
+import {ChartComponent} from "angular2-chartjs";
 
 @Component({
   selector: 'app-list',
@@ -14,8 +15,25 @@ export class ListComponent implements OnInit {
   finalList: any;
   genreNumberList: any;
   graph: any;
-  rows = 10;
+  rows = 20;
   start = 0;
+  type = 'line';
+  data = {
+    labels: [],
+    datasets: [
+      {
+        label: "Genre Group",
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: []
+      }
+    ]
+  };
+  options = {
+    responsive: true,
+    maintainAspectRatio: false
+  };
+  @ViewChild('chartComponent', {static: false}) chartComponent: ChartComponent;
 
   constructor() {
   }
@@ -26,7 +44,7 @@ export class ListComponent implements OnInit {
     this.fetchItems(endpoint);
   }
 
-  fetchItems = endpoint => {
+  fetchItems(endpoint) {
     fetch(endpoint)
       .then(result => result.json())
       .then(result => {
@@ -79,10 +97,12 @@ export class ListComponent implements OnInit {
           }
           return 0;
         });
-        console.log(this.genreNumberList)
-      });
 
-  };
+        this.data.labels = this.genreNumberList.map(x => x.name);
+        this.data.datasets[0].data = this.genreNumberList.map(x => x.count);
+        this.chartComponent.chart.update()
+      });
+  }
 
 }
 

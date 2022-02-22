@@ -1,3 +1,4 @@
+<h1 class="ml5">Arrondissement</h1>
 <ul class="list-group">
   <li *ngFor="let d of finalList" class="list-group-item">
     <span class="ml5">Arrondissement:</span> <span [ngStyle]="{'font-weight':'bold'}"> {{d.name}}</span>
@@ -5,4 +6,4 @@
   </li>
 </ul>
 
-
+<chart #chartComponent [type]="type" [data]="data" [options]="options"></chart>
