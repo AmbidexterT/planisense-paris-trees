@@ -13,7 +13,6 @@ export class DataService {
     const apiCall = fetch(`${API_URL}&rows=${this.rows}&start=${this.start}`)
       .then(result => result.json())
       .then(result => {
-        console.log(result)
         const data = result?.records.map(x => x.fields);
         const groupByArrondissement = data.reduce((group, property) => {
           const {arrondissement} = property;
